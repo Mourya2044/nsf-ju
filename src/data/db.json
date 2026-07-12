@@ -1,0 +1,85 @@
+{
+  "members": [
+    {
+      "email": "admin@nsfju.org",
+      "name": "Somsurya Banerjee",
+      "role": "Admin",
+      "wing": "General",
+      "status": "Active",
+      "password": "Aurobindo1906"
+    },
+    {
+      "email": "head@nsfju.org",
+      "name": "Rupankar Dutta",
+      "role": "Committee Head",
+      "wing": "Technical Cell",
+      "status": "Active",
+      "password": "Volunteering1906"
+    },
+    {
+      "email": "member@nsfju.org",
+      "name": "Abhijit Chakraborty",
+      "role": "Member",
+      "wing": "Technical Cell",
+      "status": "Active",
+      "password": "Volunteering1906"
+    },
+    {
+      "email": "priyanka@nsfju.org",
+      "name": "Priyanka Maitra",
+      "role": "Member",
+      "wing": "Media Cell",
+      "status": "Active",
+      "password": "Volunteering1906"
+    }
+  ],
+  "tasks": [
+    {
+      "id": 1,
+      "title": "Restructure Technical Cell Roster Framework",
+      "desc": "Build out database structures for housing entries to support off-campus outstation freshers.",
+      "wing": "Technical Cell",
+      "priority": "High",
+      "status": "todo",
+      "assignee": [
+        "member@nsfju.org"
+      ],
+      "assignedBy": "Rupankar Dutta",
+      "deadline": "2026-07-18",
+      "visibility": "committee",
+      "duration": "8 Hours",
+      "volunteersJoined": []
+    },
+    {
+      "id": 2,
+      "title": "Produce Campus Vetting Audit Material",
+      "desc": "Coordinate with local design houses to produce printed booklets on safety norms.",
+      "wing": "Media Cell",
+      "priority": "Medium",
+      "status": "in-progress",
+      "assignee": [
+        "priyanka@nsfju.org"
+      ],
+      "assignedBy": "Somsurya Banerjee",
+      "deadline": "2026-07-22",
+      "visibility": "public",
+      "duration": "4 Hours",
+      "volunteersJoined": []
+    },
+    {
+      "id": 3,
+      "title": "Volunteer Campaign: Setup Accommodation desk near Gate 4",
+      "desc": "Establish physical greeting coordinate tables to guide newcomers and distribute vetted lists.",
+      "wing": "Outreach Cell",
+      "priority": "High",
+      "status": "todo",
+      "assignee": [],
+      "assignedBy": "Rupankar Dutta",
+      "deadline": "2026-07-16",
+      "visibility": "voluntary",
+      "duration": "12 Hours",
+      "volunteersJoined": []
+    }
+  ],
+  "enrollments": []
+}
