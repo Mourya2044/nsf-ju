@@ -42,7 +42,7 @@ export default function JoinPage() {
       <main className="flex-grow">
         <section className="py-16 max-w-4xl mx-auto px-4 sm:px-6 animate-fade-in">
           <div className="border border-brand-dark dark:border-brand-chalk bg-brand-chalk dark:bg-brand-dark overflow-hidden transition-colors duration-200">
-            
+
             <div className="px-8 py-10 bg-brand-dark text-brand-chalk relative overflow-hidden">
               <span className="text-xs uppercase font-mono text-brand-saffron tracking-widest font-bold">
                 Enrollment Desk
@@ -51,7 +51,7 @@ export default function JoinPage() {
                 Join Nationalist Students&apos; Front
               </h1>
               <p className="text-brand-chalk/60 text-sm mt-2 leading-relaxed">
-               Bcome a member of the the Jadavpur organization. Dedicate hours towards student safety, anti-ragging response helplines, and restoration of swadeshi cultural heritage.
+                Become a member of the the Jadavpur organization. Dedicate hours towards student safety, anti-ragging response helplines, and restoration of swadeshi cultural heritage.
               </p>
             </div>
 
@@ -83,7 +83,7 @@ export default function JoinPage() {
               </div>
             ) : (
               <form onSubmit={handleSubmit} className="p-8 space-y-6">
-                
+
                 <div className="grid md:grid-cols-2 gap-6">
                   <div>
                     <label className="block font-mono text-[10px] font-bold uppercase text-brand-dark/60 dark:text-brand-chalk/60 mb-1 transition-colors duration-200">

@@ -29,10 +29,10 @@ export default function Navbar() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex justify-between items-center">
           {/* Brand Logotype */}
           <Link href="/" className="flex items-center gap-3 cursor-pointer">
-          <Image src={Logo} alt="Logo" className="object-contain" />
             {/* <div className="w-10 h-10 border border-brand-dark dark:border-brand-chalk flex items-center justify-center font-bold tracking-tighter text-md bg-brand-dark text-brand-chalk dark:bg-brand-chalk dark:text-brand-dark transition-colors duration-200">
               NSF
             </div> */}
+            <Image src={Logo} alt="Logo" className="h-16 w-auto bg-white rounded-full" />
             <div>
               <div className="flex items-center gap-1.5">
                 <span className="font-extrabold text-lg tracking-tight uppercase text-brand-dark dark:text-brand-chalk transition-colors duration-200">
@@ -54,11 +54,10 @@ export default function Navbar() {
                 <Link
                   key={item.path}
                   href={item.path}
-                  className={`px-4 py-2 border-b-2 transition-all duration-200 flex items-center gap-1.5 ${
-                    isActive
-                      ? "border-brand-saffron text-brand-saffron"
-                      : "border-transparent text-brand-dark/60 dark:text-brand-chalk/60 hover:text-brand-dark dark:hover:text-brand-chalk"
-                  }`}
+                  className={`px-4 py-2 border-b-2 transition-all duration-200 flex items-center gap-1.5 ${isActive
+                    ? "border-brand-saffron text-brand-saffron"
+                    : "border-transparent text-brand-dark/60 dark:text-brand-chalk/60 hover:text-brand-dark dark:hover:text-brand-chalk"
+                    }`}
                 >
                   {Icon && <Icon className="w-3.5 h-3.5" />}
                   <span>{item.name}</span>
@@ -137,11 +136,10 @@ export default function Navbar() {
                 key={item.path}
                 href={item.path}
                 onClick={() => setMobileMenuOpen(false)}
-                className={`w-full text-left py-2 block flex items-center gap-2 ${
-                  isActive
-                    ? "text-brand-saffron"
-                    : "text-brand-dark/60 dark:text-brand-chalk/60 hover:text-brand-dark dark:hover:text-brand-chalk"
-                }`}
+                className={`w-full text-left py-2 block flex items-center gap-2 ${isActive
+                  ? "text-brand-saffron"
+                  : "text-brand-dark/60 dark:text-brand-chalk/60 hover:text-brand-dark dark:hover:text-brand-chalk"
+                  }`}
               >
                 {Icon && <Icon className="w-3.5 h-3.5" />}
                 <span>{item.name}</span>
