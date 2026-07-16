@@ -22,7 +22,7 @@ export default function Home() {
             {/* Left: Large Stark Headline */}
             <div className="lg:col-span-8 space-y-8">
               <span className="font-mono text-xs uppercase tracking-widest text-brand-saffron font-bold block">
-                National Council of Education (NCE Bengal) Legacy Since 1906
+                Nationalist Students&apos; Front (NSF JU) — Veer Bhogya Vasundhara
               </span>
               <h1 className="text-4xl sm:text-5xl lg:text-7xl font-serif font-light tracking-tight leading-[1.1] text-brand-dark dark:text-brand-chalk transition-colors duration-200">
                 Reclaiming academic integrity, heritage & campus <span className="italic font-normal text-brand-saffron">dignity</span>.
@@ -62,7 +62,7 @@ export default function Home() {
               <div className="border-t border-brand-dark/10 dark:border-brand-chalk/10 pt-6 space-y-4 font-mono text-xs transition-colors duration-200">
                 <div className="flex justify-between py-1 border-b border-brand-dark/5 dark:border-brand-chalk/5 transition-colors duration-200">
                   <span className="text-brand-dark/50 dark:text-brand-chalk/50">Founded Legacy</span>
-                  <span className="font-bold text-brand-dark dark:text-brand-chalk">1906 (NCE Bengal)</span>
+                  <span className="font-bold text-brand-dark dark:text-brand-chalk">2016 (NSF JU)</span>
                 </div>
                 <div className="flex justify-between py-1 border-b border-brand-dark/5 dark:border-brand-chalk/5 transition-colors duration-200">
                   <span className="text-brand-dark/50 dark:text-brand-chalk/50">Campus Presence</span>
@@ -80,8 +80,8 @@ export default function Home() {
           {/* Structured Editorial Grid Separator */}
           <div className="editorial-grid my-20 py-10 grid grid-cols-2 md:grid-cols-4 gap-8">
             <div>
-              <span className="text-3xl font-serif text-brand-saffron font-bold">1906</span>
-              <p className="text-xs font-mono uppercase text-brand-dark/50 dark:text-brand-chalk/50 mt-1 font-bold transition-colors duration-200">Anti-Colonial Origins</p>
+              <span className="text-3xl font-serif text-brand-saffron font-bold">2016</span>
+              <p className="text-xs font-mono uppercase text-brand-dark/50 dark:text-brand-chalk/50 mt-1 font-bold transition-colors duration-200">NSF JU Establishment</p>
             </div>
             <div>
               <span className="text-3xl font-serif text-brand-dark dark:text-brand-chalk font-bold transition-colors duration-200">Zero</span>

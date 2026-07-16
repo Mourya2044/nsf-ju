@@ -33,7 +33,7 @@ export default function ManifestoPage() {
                   <BookOpen className="w-5 h-5 text-brand-saffron" />
                 </div>
                 <h3 className="text-xl font-serif mb-3 text-brand-dark dark:text-brand-chalk transition-colors duration-200">
-                  NCE Heritage Cell
+                  NSF Heritage Cell
                 </h3>
                 <p className="text-xs text-brand-dark/60 dark:text-brand-chalk/60 leading-relaxed font-light mb-6 transition-colors duration-200">
                   Keeping Jadavpur&apos;s historical swadeshi roots alive. Organizing classical Bengali celebrations, Sanskriti memorial seminars, and study groups on Swami Vivekananda&apos;s ideals.

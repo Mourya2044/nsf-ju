@@ -19,8 +19,8 @@ export default function Footer() {
             </div>
             <p className="text-xs text-brand-chalk/60 leading-relaxed font-light">
               Revitalizing academic discipline, anti-ragging security, and
-              national pride across Jadavpur University based on NCE Bengal
-              frameworks.
+              national pride across Jadavpur University based on NSF JU
+              principles.
             </p>
           </div>
 
@@ -93,8 +93,10 @@ export default function Footer() {
               Campus Location
             </h4>
             <p className="text-xs text-brand-chalk/60 font-mono leading-relaxed">
-              Jadavpur University Main Campus, Gate 4, Jadavpur, Kolkata -
-              700032
+              <b>Jadavpur University Main Campus</b>, 188 Raja S. C. Mallick Road, Kolkata - 700032.
+            </p>
+            <p className="text-xs text-brand-chalk/60 font-mono leading-relaxed">
+              <b>Jadavpur University Salt Lake Campus</b>, Salt Lake City, Block-LB, Plot No. 8, Sector - III, Kolkata - 700106.
             </p>
             <div className="flex items-center gap-2 text-xs text-brand-chalk/80 font-semibold font-mono">
               <Mail className="w-3.5 h-3.5 text-brand-saffron" />
