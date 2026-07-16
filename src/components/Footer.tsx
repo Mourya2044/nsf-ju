@@ -8,7 +8,6 @@ export default function Footer() {
     <footer className="bg-brand-dark text-brand-chalk border-t border-brand-dark/10 dark:border-brand-chalk/10 mt-auto">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div className="grid md:grid-cols-4 gap-8 mb-8 pb-8 border-b border-brand-chalk/10">
-          
           <div className="space-y-4">
             <div className="flex items-center gap-2">
               <div className="w-8 h-8 border border-brand-chalk flex items-center justify-center font-bold text-xs">
@@ -19,7 +18,9 @@ export default function Footer() {
               </span>
             </div>
             <p className="text-xs text-brand-chalk/60 leading-relaxed font-light">
-              Revitalizing academic discipline, anti-ragging security, and national pride across Jadavpur University based on NCE Bengal frameworks.
+              Revitalizing academic discipline, anti-ragging security, and
+              national pride across Jadavpur University based on NCE Bengal
+              frameworks.
             </p>
           </div>
 
@@ -29,17 +30,26 @@ export default function Footer() {
             </h4>
             <ul className="space-y-2 text-xs text-brand-chalk/60 font-semibold font-mono">
               <li>
-                <Link href="/manifesto" className="hover:text-brand-chalk transition-all">
+                <Link
+                  href="/manifesto"
+                  className="hover:text-brand-chalk transition-all"
+                >
                   Technical Cell
                 </Link>
               </li>
               <li>
-                <Link href="/manifesto" className="hover:text-brand-chalk transition-all">
+                <Link
+                  href="/manifesto"
+                  className="hover:text-brand-chalk transition-all"
+                >
                   Media Cell
                 </Link>
               </li>
               <li>
-                <Link href="/manifesto" className="hover:text-brand-chalk transition-all">
+                <Link
+                  href="/manifesto"
+                  className="hover:text-brand-chalk transition-all"
+                >
                   Outreach Cell
                 </Link>
               </li>
@@ -52,17 +62,26 @@ export default function Footer() {
             </h4>
             <ul className="space-y-2 text-xs text-brand-chalk/60 font-semibold font-mono">
               <li>
-                <Link href="/dashboard" className="hover:text-brand-chalk transition-all">
+                <Link
+                  href="/dashboard"
+                  className="hover:text-brand-chalk transition-all"
+                >
                   Member Workspace Portal
                 </Link>
               </li>
               <li>
-                <Link href="/executives" className="hover:text-brand-chalk transition-all">
+                <Link
+                  href="/executives"
+                  className="hover:text-brand-chalk transition-all"
+                >
                   Committee Executives
                 </Link>
               </li>
               <li>
-                <Link href="/join" className="hover:text-brand-chalk transition-all">
+                <Link
+                  href="/join"
+                  className="hover:text-brand-chalk transition-all"
+                >
                   Enrollment Desk
                 </Link>
               </li>
@@ -74,19 +93,20 @@ export default function Footer() {
               Campus Location
             </h4>
             <p className="text-xs text-brand-chalk/60 font-mono leading-relaxed">
-              Jadavpur University Main Campus, Gate 4, Jadavpur, Kolkata - 700032
+              Jadavpur University Main Campus, Gate 4, Jadavpur, Kolkata -
+              700032
             </p>
             <div className="flex items-center gap-2 text-xs text-brand-chalk/80 font-semibold font-mono">
               <Mail className="w-3.5 h-3.5 text-brand-saffron" />
-              <span>contact@nsfju.org</span>
+              <span>nationaliststudentsfrontju@gmail.com</span>
             </div>
           </div>
-
         </div>
 
         <div className="flex flex-col sm:flex-row justify-between items-center gap-4 text-xs text-brand-chalk/40 font-mono font-bold">
           <p>
-            &copy; 2026 Nationalist Students&apos; Front, Jadavpur University. Restoring our roots.
+            &copy; 2026 Nationalist Students&apos; Front, Jadavpur University.
+            Restoring our roots.
           </p>
           <div className="flex gap-4 font-mono text-[10px] uppercase font-bold tracking-wider">
             <a href="#" className="hover:text-brand-saffron">

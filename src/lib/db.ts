@@ -11,10 +11,38 @@ interface DatabaseSchema {
 }
 
 const DEFAULT_MEMBERS: Member[] = [
-  { email: "admin@nsfju.org", name: "Somsurya Banerjee", role: "Admin", wing: "General", status: "Active", password: "Aurobindo1906" },
-  { email: "head@nsfju.org", name: "Rupankar Dutta", role: "Committee Head", wing: "Technical Cell", status: "Active", password: "Volunteering1906" },
-  { email: "member@nsfju.org", name: "Abhijit Chakraborty", role: "Member", wing: "Technical Cell", status: "Active", password: "Volunteering1906" },
-  { email: "priyanka@nsfju.org", name: "Priyanka Maitra", role: "Member", wing: "Media Cell", status: "Active", password: "Volunteering1906" }
+  {
+    email: "admin@nsfju.org",
+    name: "Somsurya Banerjee",
+    role: "Admin",
+    wing: "General",
+    status: "Active",
+    password: "Aurobindo1906",
+  },
+  {
+    email: "head@nsfju.org",
+    name: "Rupankar Dutta",
+    role: "Committee Head",
+    wing: "Technical Cell",
+    status: "Active",
+    password: "Volunteering1906",
+  },
+  {
+    email: "member@nsfju.org",
+    name: "Abhijit Chakraborty",
+    role: "Member",
+    wing: "Technical Cell",
+    status: "Active",
+    password: "Volunteering1906",
+  },
+  {
+    email: "priyanka@nsfju.org",
+    name: "Priyanka Maitra",
+    role: "Member",
+    wing: "Media Cell",
+    status: "Active",
+    password: "Volunteering1906",
+  },
 ];
 
 const DEFAULT_TASKS: Task[] = [
@@ -30,7 +58,7 @@ const DEFAULT_TASKS: Task[] = [
     deadline: "2026-07-18",
     visibility: "committee",
     duration: "8 Hours",
-    volunteersJoined: []
+    volunteersJoined: [],
   },
   {
     id: 2,
@@ -44,7 +72,7 @@ const DEFAULT_TASKS: Task[] = [
     deadline: "2026-07-22",
     visibility: "public",
     duration: "4 Hours",
-    volunteersJoined: []
+    volunteersJoined: [],
   },
   {
     id: 3,
@@ -58,8 +86,8 @@ const DEFAULT_TASKS: Task[] = [
     deadline: "2026-07-16",
     visibility: "voluntary",
     duration: "12 Hours",
-    volunteersJoined: []
-  }
+    volunteersJoined: [],
+  },
 ];
 
 export async function readDb(): Promise<DatabaseSchema> {
@@ -71,7 +99,7 @@ export async function readDb(): Promise<DatabaseSchema> {
     const defaultData: DatabaseSchema = {
       members: DEFAULT_MEMBERS,
       tasks: DEFAULT_TASKS,
-      enrollments: []
+      enrollments: [],
     };
     await writeDb(defaultData);
     return defaultData;

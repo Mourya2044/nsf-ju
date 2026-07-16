@@ -5,6 +5,8 @@ import { usePathname } from "next/navigation";
 import { useState } from "react";
 import { Menu, X, Lock, Sun, Moon } from "lucide-react";
 import { useApp } from "@/context/AppContext";
+import Image from 'next/image'
+import Logo from '../../public/logo.png'
 
 export default function Navbar() {
   const pathname = usePathname();
@@ -25,12 +27,12 @@ export default function Navbar() {
 
       <header className="border-b border-brand-dark/10 dark:border-brand-chalk/10 sticky top-0 z-40 bg-brand-chalk/95 dark:bg-brand-dark/95 backdrop-blur-md transition-colors duration-200">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex justify-between items-center">
-          
           {/* Brand Logotype */}
           <Link href="/" className="flex items-center gap-3 cursor-pointer">
-            <div className="w-10 h-10 border border-brand-dark dark:border-brand-chalk flex items-center justify-center font-bold tracking-tighter text-md bg-brand-dark text-brand-chalk dark:bg-brand-chalk dark:text-brand-dark transition-colors duration-200">
+          <Image src={Logo} alt="Logo" className="object-contain" />
+            {/* <div className="w-10 h-10 border border-brand-dark dark:border-brand-chalk flex items-center justify-center font-bold tracking-tighter text-md bg-brand-dark text-brand-chalk dark:bg-brand-chalk dark:text-brand-dark transition-colors duration-200">
               NSF
-            </div>
+            </div> */}
             <div>
               <div className="flex items-center gap-1.5">
                 <span className="font-extrabold text-lg tracking-tight uppercase text-brand-dark dark:text-brand-chalk transition-colors duration-200">
@@ -73,21 +75,25 @@ export default function Navbar() {
                 Active: {currentUser.name}
               </div>
             )}
-            
+
             {/* Theme Toggle Button */}
             <button
               onClick={toggleTheme}
               className="p-2.5 border border-brand-dark dark:border-brand-chalk hover:bg-brand-dark hover:text-brand-chalk dark:hover:bg-brand-chalk dark:hover:text-brand-dark text-brand-dark dark:text-brand-chalk transition-all duration-200 cursor-pointer"
               aria-label="Toggle dark mode"
             >
-              {theme === "light" ? <Moon className="w-4 h-4" /> : <Sun className="w-4 h-4" />}
+              {theme === "light" ? (
+                <Moon className="w-4 h-4" />
+              ) : (
+                <Sun className="w-4 h-4" />
+              )}
             </button>
 
             <Link
               href="/join"
               className="px-5 py-2.5 border border-brand-dark dark:border-brand-chalk hover:bg-brand-dark hover:text-brand-chalk dark:hover:bg-brand-chalk dark:hover:text-brand-dark text-brand-dark dark:text-brand-chalk text-xs font-bold uppercase tracking-wider transition-all duration-200"
             >
-              Enroll
+              Join
             </Link>
           </div>
 
@@ -99,7 +105,11 @@ export default function Navbar() {
               className="p-2 border border-brand-dark dark:border-brand-chalk text-brand-dark dark:text-brand-chalk cursor-pointer"
               aria-label="Toggle dark mode"
             >
-              {theme === "light" ? <Moon className="w-4.5 h-4.5" /> : <Sun className="w-4.5 h-4.5" />}
+              {theme === "light" ? (
+                <Moon className="w-4.5 h-4.5" />
+              ) : (
+                <Sun className="w-4.5 h-4.5" />
+              )}
             </button>
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
@@ -113,7 +123,6 @@ export default function Navbar() {
               )}
             </button>
           </div>
-
         </div>
       </header>
 
@@ -129,8 +138,8 @@ export default function Navbar() {
                 href={item.path}
                 onClick={() => setMobileMenuOpen(false)}
                 className={`w-full text-left py-2 block flex items-center gap-2 ${
-                  isActive 
-                    ? "text-brand-saffron" 
+                  isActive
+                    ? "text-brand-saffron"
                     : "text-brand-dark/60 dark:text-brand-chalk/60 hover:text-brand-dark dark:hover:text-brand-chalk"
                 }`}
               >

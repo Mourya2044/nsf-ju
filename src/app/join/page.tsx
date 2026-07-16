@@ -51,7 +51,7 @@ export default function JoinPage() {
                 Join Nationalist Students&apos; Front
               </h1>
               <p className="text-brand-chalk/60 text-sm mt-2 leading-relaxed">
-                Add your credentials to the Jadavpur organization. Dedicate hours towards student safety, anti-ragging response helplines, and restoration of swadeshi cultural heritage.
+               Bcome a member of the the Jadavpur organization. Dedicate hours towards student safety, anti-ragging response helplines, and restoration of swadeshi cultural heritage.
               </p>
             </div>
 
