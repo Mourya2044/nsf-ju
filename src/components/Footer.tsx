@@ -2,6 +2,8 @@
 
 import Link from "next/link";
 import { Mail } from "lucide-react";
+import Image from 'next/image'
+import Logo from '../../public/logo.png'
 
 export default function Footer() {
   return (
@@ -10,9 +12,7 @@ export default function Footer() {
         <div className="grid md:grid-cols-4 gap-8 mb-8 pb-8 border-b border-brand-chalk/10">
           <div className="space-y-4">
             <div className="flex items-center gap-2">
-              <div className="w-8 h-8 border border-brand-chalk flex items-center justify-center font-bold text-xs">
-                NSF
-              </div>
+              <Image src={Logo} alt="Logo" className="h-16 w-auto bg-white rounded-full" />
               <span className="font-extrabold text-lg tracking-wider uppercase font-mono">
                 NSF Jadavpur
               </span>
