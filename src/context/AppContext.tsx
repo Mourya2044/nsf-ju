@@ -3,16 +3,17 @@
 import React, { createContext, useContext, useState, useEffect } from "react";
 
 export interface Member {
+  id: string;
   email: string;
   name: string;
   role: "Admin" | "Committee Head" | "Member";
   wing: "General" | "Technical Cell" | "Media Cell" | "Outreach Cell";
-  status: "Active" | "Deactivated";
+  status: "Active" | "Deactivated" | "Pending";
   password?: string;
 }
 
 export interface Task {
-  id: number;
+  id: string;
   title: string;
   desc: string;
   wing: "Technical Cell" | "Media Cell" | "Outreach Cell";
@@ -28,6 +29,7 @@ export interface Task {
 
 export interface VolunteerEnrollment {
   id: number;
+  taskId: string;
   fullName: string;
   email: string;
   phone: string;
@@ -45,14 +47,15 @@ interface AppContextType {
   theme: "light" | "dark";
   toggleTheme: () => void;
   login: (email: string, pass: string) => Promise<{ success: boolean; message: string }>;
-  register: (name: string, email: string, pass: string, role: Member["role"], wing: Member["wing"]) => Promise<{ success: boolean; message: string }>;
+  register: (name: string, email: string, pass: string, wing: Member["wing"], inviteCode: string) => Promise<{ success: boolean; message: string }>;
   logout: () => void;
   addTask: (task: Omit<Task, "id" | "status" | "assignedBy" | "volunteersJoined">) => Promise<void>;
-  completeTask: (taskId: number) => Promise<void>;
-  joinTask: (taskId: number) => Promise<void>;
-  updateMemberRole: (email: string, newRole: Member["role"]) => Promise<void>;
-  updateMemberWing: (email: string, newWing: Member["wing"]) => Promise<void>;
-  toggleMemberStatus: (email: string) => Promise<void>;
+  completeTask: (taskId: string) => Promise<void>;
+  joinTask: (taskId: string) => Promise<void>;
+  updateMemberRole: (memberId: string, newRole: Member["role"]) => Promise<void>;
+  updateMemberWing: (memberId: string, newWing: Member["wing"]) => Promise<void>;
+  updateMemberStatus: (memberId: string, newStatus: Member["status"]) => Promise<void>;
+  toggleMemberStatus: (memberId: string) => Promise<void>;
   enrollVolunteer: (enrollment: Omit<VolunteerEnrollment, "id" | "date">) => Promise<void>;
 }
 
@@ -146,19 +149,17 @@ export function AppStateProvider({ children }: { children: React.ReactNode }) {
     name: string,
     email: string,
     pass: string,
-    role: Member["role"],
-    wing: Member["wing"]
+    wing: Member["wing"],
+    inviteCode: string
   ) => {
     try {
       const res = await fetch("/api/members", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ name, email, password: pass, role, wing })
+        body: JSON.stringify({ name, email, password: pass, wing, inviteCode })
       });
       const data = await res.json();
       if (data.success) {
-        setCurrentUser(data.user);
-        localStorage.setItem("nsf_currentUser", JSON.stringify(data.user));
         await refreshData();
         return { success: true, message: data.message };
       } else {
@@ -169,7 +170,12 @@ export function AppStateProvider({ children }: { children: React.ReactNode }) {
     }
   };
 
-  const logout = () => {
+  const logout = async () => {
+    try {
+      await fetch("/api/auth/logout", { method: "POST" });
+    } catch (e) {
+      console.error("Logout request failed", e);
+    }
     setCurrentUser(null);
     localStorage.removeItem("nsf_currentUser");
   };
@@ -193,7 +199,7 @@ export function AppStateProvider({ children }: { children: React.ReactNode }) {
     }
   };
 
-  const completeTask = async (taskId: number) => {
+  const completeTask = async (taskId: string) => {
     try {
       const res = await fetch(`/api/tasks/${taskId}`, {
         method: "PUT",
@@ -211,7 +217,7 @@ export function AppStateProvider({ children }: { children: React.ReactNode }) {
     }
   };
 
-  const joinTask = async (taskId: number) => {
+  const joinTask = async (taskId: string) => {
     if (!currentUser) return;
     try {
       const res = await fetch(`/api/tasks/${taskId}`, {
@@ -230,9 +236,9 @@ export function AppStateProvider({ children }: { children: React.ReactNode }) {
     }
   };
 
-  const updateMemberRole = async (email: string, newRole: Member["role"]) => {
+  const updateMemberRole = async (memberId: string, newRole: Member["role"]) => {
     try {
-      const res = await fetch(`/api/members/${encodeURIComponent(email)}`, {
+      const res = await fetch(`/api/members/${memberId}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ role: newRole })
@@ -240,9 +246,9 @@ export function AppStateProvider({ children }: { children: React.ReactNode }) {
       const data = await res.json();
       if (data.success) {
         setMembers((prev) =>
-          prev.map((c) => (c.email === email ? data.member : c))
+          prev.map((c) => (c.id === memberId ? data.member : c))
         );
-        if (currentUser && currentUser.email === email) {
+        if (currentUser && currentUser.id === memberId) {
           const updatedUser = { ...currentUser, role: newRole };
           setCurrentUser(updatedUser);
           localStorage.setItem("nsf_currentUser", JSON.stringify(updatedUser));
@@ -253,9 +259,9 @@ export function AppStateProvider({ children }: { children: React.ReactNode }) {
     }
   };
 
-  const updateMemberWing = async (email: string, newWing: Member["wing"]) => {
+  const updateMemberWing = async (memberId: string, newWing: Member["wing"]) => {
     try {
-      const res = await fetch(`/api/members/${encodeURIComponent(email)}`, {
+      const res = await fetch(`/api/members/${memberId}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ wing: newWing })
@@ -263,9 +269,9 @@ export function AppStateProvider({ children }: { children: React.ReactNode }) {
       const data = await res.json();
       if (data.success) {
         setMembers((prev) =>
-          prev.map((c) => (c.email === email ? data.member : c))
+          prev.map((c) => (c.id === memberId ? data.member : c))
         );
-        if (currentUser && currentUser.email === email) {
+        if (currentUser && currentUser.id === memberId) {
           const updatedUser = { ...currentUser, wing: newWing };
           setCurrentUser(updatedUser);
           localStorage.setItem("nsf_currentUser", JSON.stringify(updatedUser));
@@ -276,14 +282,32 @@ export function AppStateProvider({ children }: { children: React.ReactNode }) {
     }
   };
 
-  const toggleMemberStatus = async (email: string) => {
-    const member = members.find((c) => c.email === email);
+  const updateMemberStatus = async (memberId: string, newStatus: Member["status"]) => {
+    try {
+      const res = await fetch(`/api/members/${memberId}`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ status: newStatus })
+      });
+      const data = await res.json();
+      if (data.success) {
+        setMembers((prev) =>
+          prev.map((c) => (c.id === memberId ? data.member : c))
+        );
+      }
+    } catch (err) {
+      console.error("Network error updating member status", err);
+    }
+  };
+
+  const toggleMemberStatus = async (memberId: string) => {
+    const member = members.find((c) => c.id === memberId);
     if (!member) return;
 
     const nextStatus = member.status === "Active" ? "Deactivated" : "Active";
 
     try {
-      const res = await fetch(`/api/members/${encodeURIComponent(email)}`, {
+      const res = await fetch(`/api/members/${memberId}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ status: nextStatus })
@@ -291,7 +315,7 @@ export function AppStateProvider({ children }: { children: React.ReactNode }) {
       const data = await res.json();
       if (data.success) {
         setMembers((prev) =>
-          prev.map((c) => (c.email === email ? data.member : c))
+          prev.map((c) => (c.id === memberId ? data.member : c))
         );
       }
     } catch (err) {
@@ -332,6 +356,7 @@ export function AppStateProvider({ children }: { children: React.ReactNode }) {
         joinTask,
         updateMemberRole,
         updateMemberWing,
+        updateMemberStatus,
         toggleMemberStatus,
         enrollVolunteer
       }}

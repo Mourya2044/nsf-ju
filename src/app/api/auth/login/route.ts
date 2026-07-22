@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
-import { readDb } from "@/lib/db";
+import { prisma } from "@/lib/prisma";
+import { comparePassword, signToken, setAuthCookie } from "@/lib/auth";
 
 export async function POST(request: Request) {
   try {
@@ -12,15 +13,21 @@ export async function POST(request: Request) {
       );
     }
 
-    const db = await readDb();
-    const found = db.members.find(
-      (c) => c.email.toLowerCase() === email.toLowerCase()
-    );
+    const found = await prisma.member.findUnique({
+      where: { email: email.toLowerCase() },
+    });
 
     if (!found) {
       return NextResponse.json(
         { success: false, message: "Invalid credentials. User not found." },
         { status: 404 }
+      );
+    }
+
+    if (found.status === "Pending") {
+      return NextResponse.json(
+        { success: false, message: "Account pending approval. An Admin must approve your registration before you can log in." },
+        { status: 403 }
       );
     }
 
@@ -31,20 +38,35 @@ export async function POST(request: Request) {
       );
     }
 
-    if (found.password !== password) {
+    const isValidPassword = await comparePassword(password, found.password);
+    if (!isValidPassword) {
       return NextResponse.json(
-        { success: false, message: "Invalid Credentials. Try again." },
+        { success: false, message: "Invalid credentials. Password verification failed." },
         { status: 401 }
       );
     }
 
-    // Return authenticated member (omitting password for security)
+    // Generate JWT Session Token
+    const token = signToken({
+      email: found.email,
+      name: found.name,
+      role: found.role,
+      wing: found.wing,
+    });
+
     const { password: _, ...userWithoutPassword } = found;
-    return NextResponse.json({
+    
+    const response = NextResponse.json({
       success: true,
       message: `Authentication approved. Welcome back, ${found.name}!`,
-      user: userWithoutPassword
+      user: userWithoutPassword,
+      token,
     });
+
+    // Attach secure HTTP-Only cookie to response
+    setAuthCookie(response, token);
+
+    return response;
   } catch (error) {
     return NextResponse.json(
       { success: false, message: "Server error during login." },

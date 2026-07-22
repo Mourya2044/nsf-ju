@@ -1,0 +1,43 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model Member {
+  id        String   @id @default(uuid())
+  email     String   @unique
+  name      String
+  role      String   // Admin | Committee Head | Member
+  wing      String   // General | Technical Cell | Media Cell | etc.
+  status    String   // Active | Deactivated | Pending
+  password  String
+  createdAt DateTime @default(now())
+}
+
+model Task {
+  id               String   @id @default(uuid())
+  title            String
+  desc             String
+  wing             String
+  priority         String   // Low | Medium | High
+  status           String   // todo | in-progress | done
+  assignedBy       String
+  deadline         String
+  visibility       String   // committee | public | voluntary
+  duration         String
+  assignee         String[] // Array of member emails
+  volunteersJoined String[] // Array of volunteer emails
+  createdAt        DateTime @default(now())
+}
+
+model VolunteerEnrollment {
+  id        Int      @id @default(autoincrement())
+  taskId    String
+  userEmail String
+  userName  String
+  createdAt DateTime @default(now())
+}

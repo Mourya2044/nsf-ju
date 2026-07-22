@@ -1,6 +1,5 @@
 import { NextResponse } from "next/server";
-import { readDb, writeDb } from "@/lib/db";
-import { VolunteerEnrollment } from "@/context/AppContext";
+import { prisma } from "@/lib/prisma";
 
 export async function POST(request: Request) {
   try {
@@ -13,21 +12,13 @@ export async function POST(request: Request) {
       );
     }
 
-    const db = await readDb();
-
-    const newEnrollment: VolunteerEnrollment = {
-      id: Date.now(),
-      fullName,
-      email,
-      phone,
-      course,
-      year,
-      cell,
-      date: new Date().toISOString().split("T")[0]
-    };
-
-    db.enrollments.push(newEnrollment);
-    await writeDb(db);
+    const newEnrollment = await prisma.volunteerEnrollment.create({
+      data: {
+        taskId: "0",
+        userEmail: email.toLowerCase(),
+        userName: fullName,
+      },
+    });
 
     return NextResponse.json({ success: true, enrollment: newEnrollment });
   } catch (error) {

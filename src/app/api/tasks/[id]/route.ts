@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { readDb, writeDb } from "@/lib/db";
+import { prisma } from "@/lib/prisma";
 
 export async function PUT(
   request: Request,
@@ -7,23 +7,27 @@ export async function PUT(
 ) {
   try {
     const { id } = await context.params;
-    const taskId = parseInt(id, 10);
+    const taskId = id; // String UUID
     const { action, email } = await request.json();
 
-    const db = await readDb();
-    const index = db.tasks.findIndex((t) => t.id === taskId);
+    const existingTask = await prisma.task.findUnique({
+      where: { id: taskId },
+    });
 
-    if (index === -1) {
+    if (!existingTask) {
       return NextResponse.json(
         { success: false, message: "Task not found." },
         { status: 404 }
       );
     }
 
-    const task = db.tasks[index];
+    let updatedTask;
 
     if (action === "complete") {
-      task.status = "completed";
+      updatedTask = await prisma.task.update({
+        where: { id: taskId },
+        data: { status: "completed" },
+      });
     } else if (action === "join") {
       if (!email) {
         return NextResponse.json(
@@ -31,16 +35,25 @@ export async function PUT(
           { status: 400 }
         );
       }
-      
-      const volunteers = task.volunteersJoined || [];
-      if (!volunteers.includes(email)) {
-        task.volunteersJoined = [...volunteers, email];
-      }
-      
-      const assignees = task.assignee || [];
-      if (!assignees.includes(email)) {
-        task.assignee = [...assignees, email];
-      }
+
+      const currentVolunteers = existingTask.volunteersJoined || [];
+      const currentAssignees = existingTask.assignee || [];
+
+      const newVolunteers = currentVolunteers.includes(email)
+        ? currentVolunteers
+        : [...currentVolunteers, email];
+
+      const newAssignees = currentAssignees.includes(email)
+        ? currentAssignees
+        : [...currentAssignees, email];
+
+      updatedTask = await prisma.task.update({
+        where: { id: taskId },
+        data: {
+          volunteersJoined: newVolunteers,
+          assignee: newAssignees,
+        },
+      });
     } else {
       return NextResponse.json(
         { success: false, message: "Invalid action. Supported actions are 'complete' and 'join'." },
@@ -48,8 +61,7 @@ export async function PUT(
       );
     }
 
-    await writeDb(db);
-    return NextResponse.json({ success: true, task });
+    return NextResponse.json({ success: true, task: updatedTask });
   } catch (error) {
     return NextResponse.json(
       { success: false, message: "Failed to update task." },

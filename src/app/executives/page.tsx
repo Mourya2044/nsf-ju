@@ -9,27 +9,27 @@ export default function ExecutivesPage() {
     {
       initials: "SB",
       name: "Somsurya Banerjee",
-      title: "Founding Member & Convener",
-      dept: "Research Scholar • Metallurgy",
+      title: "Founding Member & Cummer",
+      dept: "Research Gooner • Cummer",
       email: "somsurya.banerjee@nsfju.org",
     },
     {
       initials: "RD",
-      name: "Rupankar Dutta",
-      title: "Co-Convener, Arts Faculty",
-      dept: "MA Comparative Lit. • 2nd Year",
-      email: "rupankar.arts@nsfju.org",
+      name: "Chii Gu e Bara 8==D",
+      title: "Som Lover",
+      dept: "Uneducated, dumb, idiot, and many more",
+      email: "too embarassed to provide",
     },
     {
       initials: "PM",
-      name: "Priyanka Maitra",
-      title: "Sanskriti Lead & coordinator",
-      dept: "M.Sc Chemistry • 2nd Year",
-      email: "priyanka.m@nsfju.org",
+      name: "Sonam Wangchuk",
+      title: "Lead of Fasting commitee",
+      dept: "Scientist maybe",
+      email: "sonam.w@nsfju.org",
     },
     {
       initials: "AC",
-      name: "Abhijit Chakraborty",
+      name: "Abhijit Dipke",
       title: "Anti-Ragging Helpdesk Chair",
       dept: "B.E. Computer Science • 3rd Year",
       email: "abhijit.c@nsfju.org",
@@ -42,7 +42,7 @@ export default function ExecutivesPage() {
 
       <main className="flex-grow">
         <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 animate-fade-in">
-          
+
           <div className="text-center max-w-3xl mx-auto mb-16">
             <span className="text-xs font-mono uppercase tracking-widest text-brand-saffron font-bold">
               NSF Jadavpur Working Committee

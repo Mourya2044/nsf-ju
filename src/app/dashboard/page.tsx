@@ -12,7 +12,11 @@ import {
   Calendar,
   Clock,
   CheckCircle,
-  AlertCircle
+  AlertCircle,
+  KeyRound,
+  ShieldAlert,
+  UserCheck,
+  UserX
 } from "lucide-react";
 
 export default function DashboardPage() {
@@ -28,6 +32,7 @@ export default function DashboardPage() {
     joinTask,
     updateMemberRole,
     updateMemberWing,
+    updateMemberStatus,
     toggleMemberStatus
   } = useApp();
 
@@ -40,7 +45,7 @@ export default function DashboardPage() {
   const [regEmail, setRegEmail] = useState("");
   const [regPassword, setRegPassword] = useState("");
   const [regWing, setRegWing] = useState<Member["wing"]>("Technical Cell");
-  const [regRole, setRegRole] = useState<Member["role"]>("Member");
+  const [regPasscode, setRegPasscode] = useState("");
   const [regError, setRegError] = useState("");
   const [regSuccess, setRegSuccess] = useState("");
 
@@ -74,7 +79,7 @@ export default function DashboardPage() {
     e.preventDefault();
     setRegError("");
     setRegSuccess("");
-    const res = await register(regName, regEmail, regPassword, regRole, regWing);
+    const res = await register(regName, regEmail, regPassword, regWing, regPasscode);
     if (!res.success) {
       setRegError(res.message);
     } else {
@@ -82,6 +87,7 @@ export default function DashboardPage() {
       setRegName("");
       setRegEmail("");
       setRegPassword("");
+      setRegPasscode("");
     }
   };
 
@@ -165,22 +171,15 @@ export default function DashboardPage() {
                 </p>
               </div>
 
-              {/* Demo Credentials Notice */}
-              <div className="bg-brand-saffron/5 border border-brand-saffron/20 p-5 font-mono text-xs max-w-xl mx-auto space-y-3">
-                <span className="font-bold uppercase text-brand-saffron block">
-                  🔑 Demo Accounts (Role-Based Access):
-                </span>
-                <div className="text-brand-dark/85 dark:text-brand-chalk/85 font-medium text-[11px] space-y-1.5 transition-colors duration-200">
-                  <p className="border-b border-brand-dark/5 dark:border-brand-chalk/5 pb-1 transition-colors duration-200">
-                    <span className="font-bold text-brand-dark dark:text-brand-chalk transition-colors duration-200">Admin:</span> admin@nsfju.org / <span className="italic font-bold">Aurobindo1906</span>
-                  </p>
-                  <p className="border-b border-brand-dark/5 dark:border-brand-chalk/5 pb-1 transition-colors duration-200">
-                    <span className="font-bold text-brand-dark dark:text-brand-chalk transition-colors duration-200">Committee Head:</span> head@nsfju.org / <span className="italic font-bold">Volunteering1906</span>
-                  </p>
-                  <p>
-                    <span className="font-bold text-brand-dark dark:text-brand-chalk transition-colors duration-200">General Member:</span> member@nsfju.org / <span className="italic font-bold">Volunteering1906</span>
-                  </p>
-                </div>
+              {/* Security Notice */}
+              <div className="bg-brand-dark/5 dark:bg-brand-chalk/5 border border-brand-dark/10 dark:border-brand-chalk/10 p-4 font-mono text-xs max-w-xl mx-auto text-center space-y-1">
+                <p className="font-bold text-brand-saffron uppercase text-[10px] tracking-wider flex items-center justify-center gap-1.5">
+                  <ShieldAlert className="w-4 h-4 text-brand-saffron" />
+                  <span>Restricted Organization Portal Access</span>
+                </p>
+                <p className="text-brand-dark/60 dark:text-brand-chalk/60 text-[11px]">
+                  Authorized NSF JU personnel only. All access attempts are authenticated, logged, and audited.
+                </p>
               </div>
 
               {/* Stark Side-by-Side Login & Sign Up Forms */}
@@ -240,14 +239,15 @@ export default function DashboardPage() {
                   </form>
                 </div>
 
-                {/* Form: Create Account */}
+                {/* Form: Secure Access Registration Request */}
                 <div className="border border-brand-dark dark:border-brand-chalk bg-brand-chalk dark:bg-brand-dark p-8 space-y-6 transition-colors duration-200">
                   <div>
-                    <h2 className="font-serif text-xl text-brand-dark dark:text-brand-chalk font-bold transition-colors duration-200">
-                      Create Member Account
+                    <h2 className="font-serif text-xl text-brand-dark dark:text-brand-chalk font-bold transition-colors duration-200 flex items-center gap-2">
+                      <KeyRound className="w-5 h-5 text-brand-saffron" />
+                      <span>Request Member Access</span>
                     </h2>
                     <p className="text-[10px] font-mono text-brand-dark/50 dark:text-brand-chalk/50 uppercase tracking-widest mt-0.5 transition-colors duration-200">
-                      Register as a new member
+                      Requires Passcode & Admin Approval
                     </p>
                   </div>
 
@@ -295,21 +295,20 @@ export default function DashboardPage() {
                       </div>
                     </div>
 
-                    <div>
-                      <label className="block font-mono text-[10px] font-bold uppercase text-brand-dark/60 dark:text-brand-chalk/60 mb-1 transition-colors duration-200">
-                        Secure Password
-                      </label>
-                      <input
-                        type="password"
-                        required
-                        value={regPassword}
-                        onChange={(e) => setRegPassword(e.target.value)}
-                        placeholder="••••••••"
-                        className="w-full bg-brand-chalk dark:bg-brand-dark text-brand-dark dark:text-brand-chalk py-2.5 px-1 text-sm font-semibold border-b border-brand-dark/20 dark:border-brand-chalk/20 transition-colors duration-200"
-                      />
-                    </div>
-
                     <div className="grid grid-cols-2 gap-4">
+                      <div>
+                        <label className="block font-mono text-[10px] font-bold uppercase text-brand-dark/60 dark:text-brand-chalk/60 mb-1 transition-colors duration-200">
+                          Secure Password
+                        </label>
+                        <input
+                          type="password"
+                          required
+                          value={regPassword}
+                          onChange={(e) => setRegPassword(e.target.value)}
+                          placeholder="••••••••"
+                          className="w-full bg-brand-chalk dark:bg-brand-dark text-brand-dark dark:text-brand-chalk py-2.5 px-1 text-sm font-semibold border-b border-brand-dark/20 dark:border-brand-chalk/20 transition-colors duration-200"
+                        />
+                      </div>
                       <div>
                         <label className="block font-mono text-[10px] font-bold uppercase text-brand-dark/60 dark:text-brand-chalk/60 mb-1 transition-colors duration-200">
                           Committee / Cell
@@ -324,27 +323,28 @@ export default function DashboardPage() {
                           <option value="Outreach Cell" className="dark:bg-brand-dark">Outreach Cell</option>
                         </select>
                       </div>
-                      <div>
-                        <label className="block font-mono text-[10px] font-bold uppercase text-brand-dark/60 dark:text-brand-chalk/60 mb-1 transition-colors duration-200">
-                          Role Preference
-                        </label>
-                        <select
-                          value={regRole}
-                          onChange={(e) => setRegRole(e.target.value as Member["role"])}
-                          className="w-full bg-brand-chalk dark:bg-brand-dark text-brand-dark dark:text-brand-chalk py-2 px-1 text-xs font-bold font-mono border border-brand-dark/20 dark:border-brand-chalk/20 transition-colors duration-200"
-                        >
-                          <option value="Member" className="dark:bg-brand-dark">Member</option>
-                          <option value="Committee Head" className="dark:bg-brand-dark">Committee Head</option>
-                          <option value="Admin" className="dark:bg-brand-dark">Admin</option>
-                        </select>
-                      </div>
+                    </div>
+
+                    <div>
+                      <label className="block font-mono text-[10px] font-bold uppercase text-brand-dark/60 dark:text-brand-chalk/60 mb-1 transition-colors duration-200 flex items-center justify-between">
+                        <span>Secret Organization Passcode *</span>
+                        <span className="text-[9px] text-brand-dark/40 dark:text-brand-chalk/40 font-normal">Obtain from committee lead</span>
+                      </label>
+                      <input
+                        type="password"
+                        required
+                        value={regPasscode}
+                        onChange={(e) => setRegPasscode(e.target.value)}
+                        placeholder="Enter secret org code..."
+                        className="w-full bg-brand-chalk dark:bg-brand-dark text-brand-dark dark:text-brand-chalk py-2.5 px-1 text-sm font-semibold border-b border-brand-dark/20 dark:border-brand-chalk/20 transition-colors duration-200"
+                      />
                     </div>
 
                     <button
                       type="submit"
                       className="w-full py-3 bg-brand-dark dark:bg-brand-chalk hover:bg-brand-saffron dark:hover:bg-brand-saffron text-brand-chalk dark:text-brand-dark dark:hover:text-brand-chalk font-mono text-xs font-bold uppercase tracking-widest transition-colors duration-200 cursor-pointer"
                     >
-                      Create Member Account
+                      Submit Registration Request
                     </button>
                   </form>
                 </div>
@@ -401,7 +401,7 @@ export default function DashboardPage() {
                         setShowMembers(!showMembers);
                         setShowCreateTask(false);
                       }}
-                      className={`px-4 py-2 text-[11px] font-mono font-bold uppercase tracking-wider transition-all border border-brand-dark dark:border-brand-chalk flex items-center gap-1.5 cursor-pointer ${
+                      className={`px-4 py-2 text-[11px] font-mono font-bold uppercase tracking-wider transition-all border border-brand-dark dark:border-brand-chalk flex items-center gap-1.5 cursor-pointer relative ${
                         showMembers
                           ? "bg-brand-dark dark:bg-brand-chalk text-brand-chalk dark:text-brand-dark"
                           : "bg-transparent text-brand-dark dark:text-brand-chalk hover:bg-brand-dark/[0.05] dark:hover:bg-brand-chalk/[0.05]"
@@ -409,6 +409,11 @@ export default function DashboardPage() {
                     >
                       <Users className="w-3.5 h-3.5" />
                       <span>{showMembers ? "Close Directory" : "Members Directory"}</span>
+                      {members.filter((m) => m.status === "Pending").length > 0 && (
+                        <span className="ml-1 px-1.5 py-0.2 bg-brand-saffron text-brand-dark text-[9px] font-extrabold rounded-full animate-pulse">
+                          {members.filter((m) => m.status === "Pending").length}
+                        </span>
+                      )}
                     </button>
                   </div>
                 )}
@@ -603,7 +608,7 @@ export default function DashboardPage() {
                               <select
                                 value={member.wing}
                                 onChange={(e) =>
-                                  updateMemberWing(member.email, e.target.value as Member["wing"])
+                                  updateMemberWing(member.id, e.target.value as Member["wing"])
                                 }
                                 className="bg-transparent border-none text-brand-dark/75 dark:text-brand-chalk/75 font-bold uppercase py-1"
                               >
@@ -617,7 +622,7 @@ export default function DashboardPage() {
                               <select
                                 value={member.role}
                                 onChange={(e) =>
-                                  updateMemberRole(member.email, e.target.value as Member["role"])
+                                  updateMemberRole(member.id, e.target.value as Member["role"])
                                 }
                                 className="bg-transparent border-none text-brand-dark/75 dark:text-brand-chalk/75 font-bold uppercase py-1"
                               >
@@ -631,6 +636,8 @@ export default function DashboardPage() {
                                 className={`px-2 py-0.5 border font-bold uppercase text-[9px] ${
                                   member.status === "Active"
                                     ? "bg-emerald-50 text-emerald-800 border-emerald-200 dark:bg-emerald-950/20 dark:text-emerald-400 dark:border-emerald-900/40"
+                                    : member.status === "Pending"
+                                    ? "bg-amber-50 text-amber-800 border-amber-300 dark:bg-amber-950/30 dark:text-amber-300 dark:border-amber-800/40 animate-pulse"
                                     : "bg-red-50 text-red-800 border-red-200 dark:bg-red-950/20 dark:text-red-400 dark:border-red-900/40"
                                 }`}
                               >
@@ -638,19 +645,38 @@ export default function DashboardPage() {
                               </span>
                             </td>
                             <td className="py-3 px-4 text-right">
-                              <button
-                                disabled={member.email === currentUser.email}
-                                onClick={() => toggleMemberStatus(member.email)}
-                                className={`px-2.5 py-1 border text-[9px] font-bold uppercase transition-all cursor-pointer ${
-                                  member.email === currentUser.email
-                                    ? "opacity-50 border-brand-dark/10 dark:border-brand-chalk/10 text-brand-dark/25 dark:text-brand-chalk/25 cursor-not-allowed"
-                                    : member.status === "Active"
-                                    ? "bg-red-50 hover:bg-red-600 hover:text-white border-red-200 text-red-700 dark:bg-red-950/20 dark:border-red-900/40 dark:text-red-400"
-                                    : "bg-emerald-50 hover:bg-emerald-600 hover:text-white border-emerald-200 text-emerald-700 dark:bg-emerald-950/20 dark:border-emerald-900/40 dark:text-emerald-400"
-                                }`}
-                              >
-                                {member.status === "Active" ? "Deactivate" : "Activate"}
-                              </button>
+                              {member.status === "Pending" ? (
+                                <div className="flex justify-end gap-1.5">
+                                  <button
+                                    onClick={() => updateMemberStatus(member.id, "Active")}
+                                    className="px-2 py-1 bg-emerald-700 text-white hover:bg-emerald-800 text-[9px] font-bold uppercase transition-all flex items-center gap-1 cursor-pointer"
+                                  >
+                                    <UserCheck className="w-3 h-3" />
+                                    <span>Approve</span>
+                                  </button>
+                                  <button
+                                    onClick={() => updateMemberStatus(member.id, "Deactivated")}
+                                    className="px-2 py-1 bg-red-700 text-white hover:bg-red-800 text-[9px] font-bold uppercase transition-all flex items-center gap-1 cursor-pointer"
+                                  >
+                                    <UserX className="w-3 h-3" />
+                                    <span>Reject</span>
+                                  </button>
+                                </div>
+                              ) : (
+                                <button
+                                  disabled={member.email === currentUser.email}
+                                  onClick={() => toggleMemberStatus(member.id)}
+                                  className={`px-2.5 py-1 border text-[9px] font-bold uppercase transition-all cursor-pointer ${
+                                    member.email === currentUser.email
+                                      ? "opacity-50 border-brand-dark/10 dark:border-brand-chalk/10 text-brand-dark/25 dark:text-brand-chalk/25 cursor-not-allowed"
+                                      : member.status === "Active"
+                                      ? "bg-red-50 hover:bg-red-600 hover:text-white border-red-200 text-red-700 dark:bg-red-950/20 dark:border-red-900/40 dark:text-red-400"
+                                      : "bg-emerald-50 hover:bg-emerald-600 hover:text-white border-emerald-200 text-emerald-700 dark:bg-emerald-950/20 dark:border-emerald-900/40 dark:text-emerald-400"
+                                  }`}
+                                >
+                                  {member.status === "Active" ? "Deactivate" : "Activate"}
+                                </button>
+                              )}
                             </td>
                           </tr>
                         ))}

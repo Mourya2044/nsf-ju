@@ -31,7 +31,7 @@ export default function JoinPage() {
         body: JSON.stringify(formData)
       });
     */
-    await enrollVolunteer(formData);
+    await enrollVolunteer({ ...formData, taskId: "0" });
     setSubmitted(true);
   };
 
